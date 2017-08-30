@@ -29,6 +29,18 @@ export function items(state = [], action) {
     }
 }
 
+
+export function ping(state = "", action) {
+    //debugger;
+    switch (action.type) {
+        case 'INCOMING_PONG_PAYLOAD':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+
 export function message(state = [], action) {
     //debugger;
     switch (action.type) {

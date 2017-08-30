@@ -6,8 +6,11 @@
     "ag-grid": "^11.0.0",
     "ag-grid-react": "^11.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "lodash": "^4.17.4",
+    "mui-icons": "^1.2.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -17,9 +20,13 @@
     "react-scripts": "1.0.10",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
+    "redux-devtools-extension": "^2.13.2",
     "redux-saga": "^0.15.4",
     "redux-saga-router": "^2.1.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "redux-tower": "0.0.6",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -8,7 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
+import CircularProgress from 'material-ui/CircularProgress';
+import * as _ from 'lodash'
 
 const style = {
   margin: 12,
@@ -63,11 +64,15 @@ class App extends Component {
       .catch(() => this.setState({ hasErrored: true }));
   }
 
- componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.message == "ok") {
-      this.context.router.history.push('/grid',...this.state);
+      //this.context.router.history.push('/grid', ...this.state);
+      alert("token: " + sessionStorage.getItem('token'))
+      this.context.router.history.push('/to', ...this.state);
     } else {
-      alert(this.props.message);
+      if (_.trim(this.props.message) != "" && this.props.message != "ok") {        
+        alert(this.props.message);
+      }
     }
   }
 
@@ -110,6 +115,8 @@ class App extends Component {
     /*
     return (      
     )
+    
+    {this.props.message == "ok" ? (<div style={font11}> Log on Succesfull </div>) : this.props.message}
     */
 
     return (
@@ -119,38 +126,48 @@ class App extends Component {
           <h2>Welcome to HVS</h2>
         </div>
 
-        {this.props.message == "ok" ? (<div style={font11}> Log on Succesfull </div>) : this.props.message}
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Paper style={paperStyle} zDepth={5} >
             <table style={{ cellSpacing: '20px' }}>
-              <tr>
-                <td style={font11} >User ID:</td>
-                <td style={font11}><TextField ref="txtUser" style={font11} hintText="Enter User ID" /></td>
-              </tr>
-              <tr>
-                <td style={font11}>Password:</td>
-                <td style={font11}><TextField type='password' ref={element => (this.txtPwd = element)} style={font11} hintText="Enter Password" /></td>
-              </tr>
-              <tr>
-                <td style={font11}>Application:</td>
-                <td>
-                  <SelectField
-                    //floatingLabelText="Application"
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    style={{ textAlign: 'left' }}
-                  >
-                    <MenuItem value={1} primaryText="Case Management" />
-                    <MenuItem value={2} primaryText="Budgeting" />
-                    <MenuItem value={3} primaryText="InstaBooks" />
-                  </SelectField>
-                </td>
-              </tr>
-              <tr>
-                <td><RaisedButton label="Login" primary={true} style={style} onTouchTap={() => this._handleTouchTap()} /></td>
-                <td><RaisedButton label="Register" primary={true} style={style} onTouchTap={() => this._handleTouchTap()} /></td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td style={font11} >User ID:</td>
+                  <td style={font11}><TextField ref="txtUser" style={font11} hintText="Enter User ID" /></td>
+                </tr>
+                <tr>
+                  <td style={font11}>Password:</td>
+                  <td style={font11}><TextField type='password' ref={element => (this.txtPwd = element)} style={font11} hintText="Enter Password" /></td>
+                </tr>
+                <tr>
+                  <td style={font11}>Application:</td>
+                  <td>
+                    <SelectField
+                      //floatingLabelText="Application"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                      style={{ textAlign: 'left' }}
+                    >
+                      <MenuItem value={1} primaryText="Case Management" />
+                      <MenuItem value={2} primaryText="Budgeting" />
+                      <MenuItem value={3} primaryText="InstaBooks" />
+                    </SelectField>
+                  </td>
+                </tr>
+                <tr>
+                  <td><RaisedButton label="Login" primary={true} style={style} onTouchTap={() => this._handleTouchTap()} /></td>
+                  <td><RaisedButton label="Register" primary={true} style={style} onTouchTap={() => this._handleTouchTap()} /></td>
+                </tr>
+                <tr>
+                  <td colSpan="2">
+                    {this.props.isLoading ? (
+                      <div style={{ display: 'block' }}>
+                        <span>Loading...</span> <CircularProgress />
+                      </div>
+                    ) : null}
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </Paper>
         </div>
